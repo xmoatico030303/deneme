@@ -1,40 +1,33 @@
-const Discord = require('discord.js');
-const ayarlar = require('../ayarlar.json');
+const Discord = require('discord.js')
+exports.run = async (client, message, args) => {
 
-var prefix = ayarlar.prefix;
+  let commandSize = 0
+  let embed = new Discord.RichEmbed()
+    .setColor("0x36393E")
+  if (!args[0]) {
+    embed.setAuthor("Komut Listesi", message.author.avatarURL)
+    let commands = client.commands.filter(cs => cs.help.category == 'Kullanıcı')
+    commands = commands.map(cmd => cmd.help.name)
+    if (commands.length <= 0) return
+    commandSize += commands.length
+    embed.addField('Kullanıcı Komutları', `\`${commands.sort().join("`, `")}\``)
+    embed.setFooter(`Kullanıcı Komutu Sayısı: ${commandSize}`)
 
-exports.run = (client, message, params) => {
-
-  if (!params[0]) {
-    const commandNames = Array.from(client.commands.keys());
-    const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
-    message.author.sendCode('asciidoc', `= Komut Listesi =\n\n[Komut hakkında bilgi için ${ayarlar.prefix}yardım <komut adı>]\n\n${client.commands.map(c => `${ayarlar.prefix}${c.help.name}${' '.repeat(longest - c.help.name.length)} :: ${c.help.description}`).join('\n')}`);
-  if (message.channel.type !== 'dm') {
-    const ozelmesajkontrol = new Discord.RichEmbed()
-    .setColor(0x00AE86)
-    .setTimestamp()
-    .setAuthor(message.author.username, message.author.avatarURL)
-    .setDescription('Özel mesajlarını kontrol et. :postbox:');
-    message.channel.sendEmbed(ozelmesajkontrol) }
-  } else {
-    let command = params[0];
-    if (client.commands.has(command)) {
-      command = client.commands.get(command);
-      message.author.sendCode('asciidoc', `= ${command.help.name} = \n${command.help.description}\nDoğru kullanım: ` + prefix + `${command.help.usage}`);
-    }
+    return message.channel.send(embed)
   }
-
-};
+}
 
 exports.conf = {
-  enabled: true,
-  guildOnly: false,
-  aliases: ['h', 'halp', 'help', 'y'],
-  permLevel: 0
-};
-
-exports.help = {
-  name: 'yardım',
-  description: 'Tüm komutları gösterir.',
-  usage: 'yardım [komut]'
-};
+    enabled: true,
+    guildOnly: false,
+    aliases: ['kullanıcıkomutları', 'kk', 'üye', 'user'],
+    permLevel: 0
+  };
+  
+  exports.help = {
+    name: 'kullanıcı',
+    category: 'Kullanıcı',
+    description: 'Komutlar hakkında bilgi alırsınız.',
+    usage: 'kullanıcı'
+  };
+   
