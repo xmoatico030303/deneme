@@ -23,10 +23,10 @@ message.channel.send("Yetersiz yetki")
 exports.conf = {
   enabled: true,
   guildOnly: true,
-  aliases: [],
+  aliases: ['tag','ototag'],
   permLevel: 0
 };
 
 exports.help = {
-  name: 'tag',
+  name: 'oto-tag',
 };
