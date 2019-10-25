@@ -8,9 +8,9 @@ exports.run = (client, message, params) => {
   const embedyardim = new Discord.RichEmbed()
   .setTitle(`${client.user.username}`)
   .setDescription('')
-  .setColor("WebPanel")
+  .setColor("Snax Kontrol Paneli")
     .setDescription('')
-      .setDescription('Hep Daha İleriye Bizimle! \n\n**Harika Özellikler İçeren web panel Sistemi Hakkında!** \n\n Bizlere Destek Olmak Ve Harika Özellikler Kazanmak İçin [Tıkla](https://kc-at-panel.glitch.me/)')
+      .setDescription('Hep Daha İleriye Bizimle! \n\n**Harika Özellikler İçeren web panel Sistemi Hakkında!** \n\n Bizlere Destek Olmak Ve Harika Özellikler Kazanmak İçin [Tıkla](https://snax-kontrol-panel.glitch.me/)')
       .setFooter(`© ${client.user.username}` )
 
   if (!params[0]) {
