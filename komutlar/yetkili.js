@@ -1,26 +1,41 @@
 const Discord = require('discord.js');
-const ayarlar = require('moment');
+const loglar = require('../ayarlar.json');
 
-var prefix = ayarlar.prefix;
+var prefix = loglar.prefix;
 
-exports.run = (client, message, params) => {
-  const embedyardim = new Discord.RichEmbed()
-  .setThumbnail(client.user.avatarURL)
-  .setDescription(`**hz!dm-gönder** = Bot Tarafından Birine Mesaj Atar.\n **hz!herkese-rol-ver** = Rol Etiketleyerek Herkese Rol Ver.\n **hz!herkesten-rol-al** = Rol Etiketleyerek Herkesten Rol Al.\n **hz!kick** = Birini Sunucudan Atmaya İşe Yarar.\n **hz!mute** = Birini Susturmaya İşe Yarar.\n **hz!otorol-ayarla** = Sunucuda Otorol Ayarlar.\n **hz!otorol-kapat** = Ayarlanmış Otorol Kapatır.\n **hz!oylama** = Sunucuda Oylama Yapmaya İşe Yarar.\n **hz!sayaç-ayarla** = Sunucunun Sayaçını Ayarlar.\n **hz!temizle** = Sohbeti Temizlemeye İşe Yarar.\n **hz!unmute** = Susturulmuş Birinin Mutesini Kaldırır.\n **hz!uyar** = Birine Uyarmaya İşe Yarar.\n **hz!yavaşmod** = Chatde Konuşma Sınırı Koyar (süre).\n **hz!çekiliş-yap** = Sunucuda Çekiliş Yapmaya İşe Yarar.`)
-  .setColor(0x00ffff)
- message.channel.send(embedyardim);
-}
-  
-  
+exports.run = async (client, message, params, args) => {
+
+  const eğlence = new Discord.RichEmbed()
+  .setColor(0x36393E)
+      .setAuthor(`Anka Bot`, client.user.avatarURL)
+      .setThumbnail(client.user.avatarURL)
+.addField("<a:vip:618164464688300042> | a+ban : Kullanım : a+ban","kimi banlayacagım <a:banned:614477727637962813>")
+.addField("<a:vip:618164464688300042>| a+capslockengel : Kullanım : a+capslockengel aç", "Capslock engelini açar")
+.addField("<a:vip:618164464688300042> |a+slowmode : Kullanım : a+slowmode 3", "Slowmode açar")
+.addField("<a:vip:618164464688300042> | a+gsustur : Kullanım : a+gsustur <Kullanıcı> <Süre>", "Kişiyi geçici susturur")
+.addField("<a:vip:618164464688300042> | a+gkanal : Kullanım : a+gkanal #kanal", "Resimli giriş çıkış ayarlar")
+.addField("<a:vip:618164464688300042> | a+küfürengelle : Kullanım : a+küfürengelle aç", "Küfür engel açar")
+.addField("<a:vip:618164464688300042> | a+modlog : Kullanım : a+modlog #kanal","Mod log ayarlar")
+.addField("<a:vip:618164464688300042> | a+otorol : Kullanım : a+otorol @üye #kanal", "otorol ayarlar")
+.addField("<a:vip:618164464688300042> | a+prefix : Kullanım : a+prefix prefix", "Sunucu için prefix ayarlar")
+.addField("<a:vip:618164464688300042> | a+rolver :Kullanım :a+rolver <@kullanıcı> <@rol>", "Bir kişiye rol verir")
+.addField("<a:vip:618164464688300042>| a+sayaç : Kullanım : a+sayaç sayı kanal", "Sayaç ayarlar")
+  .addField("<a:vip:618164464688300042>| a+oy-kick : Kullanım : a+oy-kick @kullanıcı", "Oy yaparak kişiyi atar")
+
+return message.channel.sendEmbed(eğlence);
+
+};
+
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['yetkili'],
+  aliases: [],
   permLevel: 0
 };
 
 exports.help = {
   name: 'yetkili',
-  description: 'Yetkili Komutları Gösterir.',
-  usage: 'yetkili'
+  description: 'Komut kategorilerini gösterir.',
+  usage: 'eğlence'
 };
+   
