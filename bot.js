@@ -152,52 +152,21 @@ client.on('ready', () => {
  
 
 
-///////////////////////////////////////////////////////////
 
-client.on('guildMemberAdd', async (member, guild, message) => {
-//CodAre
-let role = await  db.fetch(`otorolisim_${member.guild.id}`)
- let otorol = await db.fetch(`autoRole_${member.guild.id}`)
- let i = await db.fetch(`otorolKanal_${member.guild.id}`)
- if (!otorol || otorol.toLowerCase() === 'yok') return;
-else {
- try {
-  //CodAre
-
-  if (!i) return //CodAre
-
-  member.addRole(member.guild.roles.get(otorol))
-                        var embed = new Discord.RichEmbed()
-                        .setDescription(`**Sunucuya Yeni Katılan** \`${member.user.tag}\` **Kullanıcısına** \`${role}\` **Rolü verildi.**`)
-                        .setColor('0x36393E') //CodAre
-                        .setFooter(`Otorol Sistemi`)
-     member.guild.channels.get(i).send(embed)  } catch (e) {
- console.log(e)
-}
-}
-
-});
 
 ///////////////////////////////////////////////////////////
+
+var mesajlar = ["sa","nasılsın","iyimisin","MERHABALAR AQ","Coders Code","hoşgeldiniz","hg","hb","omg","fuck","allahu ekber","Siz Ekleyin","Siz Ekleyin","Siz Ekleyin"]
 
 client.on("message", async message => {
-
-if( message.content === "sa" || message.content === "Sa" || message.content === "Selamın Aleyküm" || message.content === "selamın aleyküm" || message.content === "sea" || message.content === "Sea") {
-
-let gold = require("quick.db").fetch(`tios_gold${message.author.id}`)
-if (gold === "gold") {
-
-  const embed = new Discord.RichEmbed()
-  .setColor("GOLD")
-  .setDescription(" Hizaya Geçin Bu Bir **Gold** Üye ! ")
-  message.channel.send({embed})
-
-  } else {
-
-return;
-
-  }
+  var goldyusufolduhehe = db.fetch(`golduye.coderscode_${message.author.id}`)
+  if(!goldyusufolduhehe) return;
+  if(mesajlar.some(yusuf => message.content.toLowerCase() === yusuf)) return await message.channel.send({embed: {
+   color: 8552,
+   description: (`:small_blue_diamond: :punch: Vayyy Aramızda Bir Gold Üye Varmış  ${message.author.tag}  :punch: :small_blue_diamond: `)
+    
 }
+})
 })
 
 //////////////////////////////////////////////////////////
