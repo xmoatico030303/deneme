@@ -690,16 +690,25 @@ client.on('guildMemberAdd', async member => {
 });
 //////////////ototag
 client.on("guildMemberAdd", async member => {
-  let log = await db.fetch(`otolog_${member.guild.id}`);
-  let log2 = member.guild.channels.find('id', log)
-  let rol = await db.fetch(`otorol_${member.guild.id}`);
-  let otorol = member.guild.roles.find('id', rol);
-  if (!log) return;
-  if (!log2) return;
-  if (!rol) return;
-  if (!otorol) return;
-  log2.send(`:mega: :5727_GreenTick: \`${member.user.tag}\` adlı kullanıcı aramıza katıldı! \`${otorol.name}\` adlı rol başarıyla verildi.`)
-  member.addRole(otorol)
+let kanal = await db.fetch(`otok_${member.guild.id}`)  
+let rol = await db.fetch(`otorol_${member.guild.id}`)   
+let mesaj =  db.fetch(`otomesaj_${member.guild.id}`)  
+if(!kanal) return
+
+if(!mesaj) {
+  
+  client.channels.get(kanal).send(':loudspeaker: :inbox_tray: Otomatik Rol Verildi Seninle Beraber `'+member.guild.memberCount+'` Kişiyiz! Hoşgeldin! `'+member.user.username+'`')
+member.addRole(rol)
+  return
+}
+
+if(mesaj) {
+  var mesajs = await db.fetch(`otomesaj_${member.guild.id}`).replace("-uye-", `${member.user.tag}`).replace("-rol-", `${member.guild.roles.get(rol).name}`).replace("-server-", `${member.guild.name}`).replace("-uyesayisi-", `${member.guild.memberCount}`).replace("-botsayisi-", `${member.guild.members.filter(m => m.user.bot).size}`).replace("-bolge-", `${member.guild.region}`).replace("-kanalsayisi-", `${member.guild.channels.size}`)
+  member.addRole(rol)
+  client.channels.get(kanal).send(mesajs)
+
+}  
+  
 });
 ////////////////////otorol
 const invites = {};
