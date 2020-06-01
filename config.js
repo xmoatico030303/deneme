@@ -1,13 +1,10 @@
 const config = {
-  "token": "NjM3OTU4NjY5MzU0NTMyODY0.XbVvWw.erhKOZhP-elm9hKPY9W_canaa6w",
-
+  "token": "NjMwMjYxNDIzNTExMDQ0MTU2.XZtAAw.4poR3wn6rW94HiAYFjlgK36YLvI", //botunuzun tokenini yazınız
   "dashboard" : {
-    "oauthSecret": "W29eNy6s4Bj7FveKcqhDAj3k2vjr4YKR", // botunuzun client secret tini buraya yazin
-    "callbackURL": "https://snax-kontrol-panel.glitch.me/callback",// burda login yapmak icin botunuzun Outh2 yazan yere gelip orda daki kizma yapistirip kaydedin
-    "sessionSecret": "W29eNy6s4Bj7FveKcqhDAj3k2vjr4YKR",
-    "domain": "https://snax-kontrol-panel.glitch.me",// buraya kc at alt yapi yerine yazdiysaniz kc-at-panel isimi ile degistirin
-    "port": 8000
-  },
+    "oauthSecret": "aAMgQYKWoVPAFhZzkoDpzrFcsXiR9RZt", //botunuzun secretini yazınız 
+    "callbackURL": 'https://casperr1.glitch.me/callback',//site URLnizi yazınız /callback kısmını silmeyiniz!
+    "sessionSecret": "super-secret-session-thing", //kalsın
+    "domain": "https://casperr1.glitch.me",
+     "port": 8000
+  }
 };
-
-module.exports = config;

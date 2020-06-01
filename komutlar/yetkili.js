@@ -1,31 +1,47 @@
-const Discord = require('discord.js');
-const loglar = require('../ayarlar.json');
+const Discord = require("discord.js");
+const moment = require("moment");
+const colors = require("colors");
+var green = process.env.NODE_DISABLE_COLORS ? '' : '\x1b[32m';
 
-var prefix = loglar.prefix;
+require("moment-duration-format");
 
-exports.run = async (client, message, params, args) => {
-
-  const eğlence = new Discord.RichEmbed()
-  .setColor(0x36393E)
-      .setAuthor(`Snax Bot`, client.user.avatarURL)
-      .setThumbnail(client.user.avatarURL)
-.addField("<a:f1:637967475530530816>| s!ban : Kullanım : s!ban","kimi banlayacagım ")
-.addField("<a:f1:637967475530530816>| s!kick : Kullanım : s!kick","atacagın ")
-.addField("<a:f1:637967475530530816>| s!capslock-engel : Kullanımı s!capslock-engel ", "Yazınca Aktif Oluyor Eğer Bir Daha Yazarsan Kapanır")
-.addField("<a:f1:637967475530530816>| s!slowmode : Kullanım : s!slowmode 3", "Slowmode açar")
-.addField("<a:f1:637967475530530816>| s!reklam-kick : Kullanım : s!reklam-kick aç", "Yazarsanız 3 Kere Reklam Yapanı Sunucu Atar")
-.addField("<a:f1:637967475530530816>| s!küfür-engelle : Kullanım : s!küfür-engelle aç", "Küfür engel açar")
-.addField("<a:f1:637967475530530816>| s!ayarlar : Kullanım : s!ayarlar","Sunucu Yaptınız Ayar Gosterir")
-.addField("<a:f1:637967475530530816>| s!prefix : Kullanım : s!prefix prefix", "Sunucu için prefix ayarlar")
-.addField("<a:f1:637967475530530816>| s!sayaç : Kullanım : s!sayaç sayı kanal", "Sayaç ayarlar")
-.addField("<a:f1:637967475530530816>| s!oy-kick : Kullanım : s!oy-kick @kullanıcı", "Oy yaparak kişiyi atar")
-.addField("<a:f1:637967475530530816>| s!oy-ban : Kullanım : s!oy-ban @kullanıcı", "Oy yaparak Kişiyi Banlar")
-.addField("<a:f1:637967475530530816>| s!reklamtaraması : Kullanım : s!reklamtaraması", "Sunucu Rekalam Yapan Gosterir")
-.addField("<a:f1:637967475530530816>| s!webpanel : Kullanım : s!webpanel ", "Botun Sitesini Yani Kontrol Panel Gosterir")
-
-
-return message.channel.sendEmbed(eğlence);
-
+exports.run = (client, msg) => {
+  const duration = moment.duration(client.uptime).format(" D [gün], H [saat], m [dakika], s [saniye]");
+  msg.channel.sendCode("asciidoc", `⇝ Yetkili komutlar | Not:Komutlar vt! ile baslar	
+  • istatistik      :: Bot Istatistiligini Gosterir.
+  • anket    :: Anket Acar		
+  • ban      :: İstediğiniz kişiyi sunucudan yasaklar.
+  • kick     :: İstediğiniz kişiyi sunucudan atar.
+  • sustur   :: İstediğiniz kişiyi susturur.
+  • temizle  :: Mesajları siler.
+  • uyar     :: İstediğiniz kişiye uyarı verir.
+  • duyuruyap:: Sunucunuzda duyuru yapmanızı sağlar.
+  • kilit    :: Unuttum :(
+  • unload   :: Yetkili Bilir
+  • unban    :: Ban Kaldirir.
+  • terfi    :: Kullaniciyi Terfi Eder
+  • Sayacaç  :: sayaç acar.
+  •Sayackapat:: Sayaç kapatır.
+  • oylama   :: Oylama yapar.
+  • çekiliş  :: çekiliş yapar.
+  • kanalismideğiş :: kanal ismini değistirir.
+  • ses-kanal-aç :: ses kanalı açar.
+  • yavaşmod :: yavaş modu açar.
+  • yazı-kanal-aç:: yazı kanalı açar.
+  • reklamtaraması:: oynuyor kısmında ki reklamları tarar
+  • temizle2 :: Gelişmiş sohbet temizleme
+  • güvenlik :: Güvenlik kanalı ayarlar
+  • capslock-engel :: Capslock kullanımını engeller.
+  • kayitsistemi :: Kayıt sistemini açar
+  • süreli-mute:: Etiketlediğiniz kişiye belirttiğiniz süre kadar mute atar
+  • tag      :: Oto tagı ayarlar.
+  • süreliban:: Etiketlenen kullanıcıyı süreli olarak banlar
+  • gkanal   :: Giriş çıkış kanalını ayarlar
+  • kkanal   :: Kayıt kanalını ayarlar.
+  • küfür    :: Küfür engelleme sistemini açar.
+  • süreli-kanal : Süreli kanal olusturur.
+  • otorol   :: Otorol komutlarını gösterir.
+    Sayfa 1 / 1 | Yapımcım: ! CasperSama#4412`);
 };
 
 exports.conf = {
@@ -34,13 +50,9 @@ exports.conf = {
   aliases: [],
   permLevel: 0
 };
-  
+
 exports.help = {
   name: 'yetkili',
-  description: 'Komut kategorilerini gösterir.',
-  usage: 'eğlence'
+  description: 'Tüm komutları listeler. İsterseniz bir komut hakkında yardım eder..',
+  usage: 'yetkili'
 };
-   
-
-
-

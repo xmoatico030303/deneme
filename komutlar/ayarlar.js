@@ -1,39 +1,55 @@
-const Discord = require("discord.js");
-const fs = require("fs");
-const db = require("quick.db");
-const ayarlar = require("../ayarlar.json")
+
+
+  const Discord = require('discord.js');
+const db = require('quick.db');
 
 exports.run = async (client, message, args) => {
-  
-  let prefix =ayarlar.prefix;
 
-  const embed = new Discord.RichEmbed()
-  .setColor("orange")
-  .setAuthor(` » ${message.guild.name} Sunucu Ayarları «`,"https://cdn.discordapp.com/emojis/601753206090891265.png?v=1")
-  .addField(`Küfür`, db.has(`küfürEngel_${message.guild.id}`) ? `${db.fetch(`küfürEngel_${message.guild.id}`)}`: ` Kapalı`, true)
-  .addField(`Reklam`, db.has(`reklam_${message.guild.id}`) ? `${db.fetch(`reklam_${message.guild.id}`)}`: ` Kapalı`, true)
-  .addField(`reklam-isim-ban`, db.has(`reklamisimban_${message.guild.id}`) ? `${db.fetch(`reklamisimban_${message.guild.id}`)}`: ` Kapalı`, true)
-  .addField(`sunucu-koruma`, db.has(`botkoruma_${message.guild.id}`) ? `${db.fetch(`botkoruma_${message.guild.id}`)}`: ` Kapalı`, true)
-  .addField(``, db.has(`sigtir_${message.guild.id}`) ? `${db.fetch(`sigtir_${message.guild.id}`)}`: ` Kapalı`, true)
-  .addField(`oto bot silici`, db.has(`otobsilici_${message.guild.id}`) ? `${ message.guild.channels.get(db.fetch(`otobsilicia_${message.guild.id}`)).name}`: ` Kapalı`, true)
-  .addField(`capslock`, db.has(`capslock_${message.guild.id}`) ? `${ message.guild.channels.get(db.fetch(`capslock_${message.guild.id}`)).name}`: ` Kapalı`, true)
-  .addField(`Sayaç`, db.has(`sayac_${message.guild.id}`) ? (db.fetch(`sayac_${message.guild.id}`)):` Kapalı`, true)
-  .addField(`ultra sohnet temizleme Kanalı`, db.has(`usohbet_${message.guild.id}`) ? `${ message.guild.channels.get(db.fetch(`usohbet_${message.guild.id}`)).name}`: ` Kapalı`, true)
-  .addField(`Oto Rol`, db.has(`autoRole_${message.guild.id}`) ? `${ message.guild.roles.get(db.fetch(`autoRole_${message.guild.id}`)).name}`: ` Kapalı`, true)
- .setFooter(`${message.author.username} tarafından istendi.`)
-  message.channel.send(embed);
+    if (!message.guild) {
+    const ozelmesajuyari = new Discord.RichEmbed()
+    .setColor(0x2488E7)
+    .setTimestamp()
+    .setAuthor(message.author.username, message.author.avatarURL)
+    .addField('Sadece herhangi bir sunucudan mesaj gönderebilirim.:relaxed: ')
+    return message.author.sendEmbed(ozelmesajuyari); }
+
+
+
+
+  const sayfa = [`**${message.guild.name} | Ayarları**
+\n**Sunucu prefixi :** /
+\n**Link engeli:** ${db.fetch(`reklamFiltre_${message.guild.id}`) ? `Açık ` : ` Kapalı ` }
+\n**Küfür engeli:** ${db.fetch(`kufur_${message.guild.id}`) ? `Açık ` : ` Kapalı ` }
+\n**Büyük harf engeli:** ${db.fetch(`capsEngel_${message.guild.id}`) ? `Açık ` : ` Ayarlanmamış ` }
+\n**Otorol:** ${db.fetch(`autoRole_${message.guild.id}`) ? ` \`@${message.guild.roles.get(db.fetch(`autoRole_${message.guild.id}`)).name}\`` : ` Ayarlanmamış `}
+\n**Otorol Kayıt Kanalı:** ${db.fetch(`otorolKanal_${message.guild.id}`) ? ` \`${message.guild.channels.get(db.fetch(`otorolKanal_${message.guild.id}`)).name}\` ` : ` Ayarlanmamış `}
+\n**Sayaç kanalı:** ${db.fetch(`sayacKanal_${message.guild.id}`) ? ` \`${message.guild.channels.get(db.fetch(`sayacKanal_${message.guild.id}`)).name}\` `: ` Ayarlanmamış  `}
+\n**Sayaç:** ${db.fetch(`sayacSayi_${message.guild.id}`) ?` \`${db.fetch(`sayacSayi_${message.guild.id}`)}\` ` : `Ayarlanmamış `}
+\n**Giriş Çıkış kanalı:** ${db.fetch(`hgKanal_${message.guild.id}`) ? ` ${client.channels.get(db.fetch(`hgKanal_${message.guild.id}`))} `  : `Ayarlanmamış `}
+
+  
+`] 
+  
+  const ayarReis = new Discord.RichEmbed()
+  .setColor(0x36393E)
+  .setDescription(sayfa)
+  .setTimestamp()
+  
+  message.channel.send(ayarReis)
+
+ 
 };
 
 exports.conf = {
-  enabled: true,
-  guildOnly: false,
-  aliases: ["5 Eylül'de istek istedim daha bekleniyor nekadar kolaymış degilmi","APTAL"],
-  permLevel: 0,
-  kategori: "ayarlar"
-};
-
-exports.help = {
-  name: "ayar",
-  description: "Sunucu ayarlarını gösterir",
-  usage: "ayar"
-};
+    enabled: true,
+    guildOnly: false,
+    aliases: ["settings",'sunucu-ayarları','sunucuayarları','sunucuayarı'],
+    permLevel: 0,
+    kategori: "sunucu",
+  };
+  
+  exports.help = {
+    name: 'ayarlar',
+    description: 'Sunucu ayarlarını gösterir.',
+    usage: 'ayarlar',
+  };  

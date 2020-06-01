@@ -1,40 +1,39 @@
 const Discord = require('discord.js');
-const client = new Discord.Client();
-const moment = require("moment");
-require("moment-duration-format");
-const ayarlar = require('../ayarlar.json');
 
 
-exports.run = (client, message) => {
-    const duration = moment.duration(client.uptime).format(" D [gün], H [saat], m [dakika], s [saniye]");
-	const istatistikozel = new Discord.RichEmbed()
-    .setColor(0x36393F)
-.setDescription(`${client.user.username}`)
-  .addField(` Bot Sahipleri:`, `<@629377827392716842>`, true)
-  .addField('Shard:', '1/1', true)
-	.addField("Bellek Kullanımı:", `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true)
-  .addField("Sunucu Sayısı:", `${client.guilds.size.toLocaleString()}`, true)
-  .addField("Kullanıcı Sayısı:", `${client.users.size}`, true)
-  .addField("Toplam Kullanıcı Sayısı:", `${client.guilds.reduce((a, b) => a + b.memberCount, 0).toLocaleString()}`, true)
-  .addField("Kanal Sayısı:", `${client.channels.size.toLocaleString()}`, true)
-  .addField(`Ne Kadar Süredir Aktif:`, `${duration}`, true)
-  .addField("Ping:", `${client.ping}`, true)
-  .addField("Discord.js Sürümü:", `${Discord.version}`, true)
-  .addField(`Davet Et`, `[Tıkla](https://discordapp.com/oauth2/authorize?client_id=509835376857186315&scope=bot&permissions=2080767167)`, true)
-  message.channel.sendEmbed(istatistikozel)
+exports.run = function(client, message) {
+  
+  const bot = client
+  const bolat = client.user;
+  const tag = bolat.tag;
+  const sunucu = client.guilds.size;
+  const kullanıcı = client.users.size;
+  const kanal = bot.channels.size;
+  const ping = client.ping;
+  const link = "https://discordapp.com/oauth2/authorize?client_id="+client.user.id+"&scope=bot&permissions=8";
+  const ayarlar = require("../ayarlar.json")
+  const prefix = ayarlar.prefix
+  
+message.channel.send(
+new Discord.RichEmbed()
+  .setTitle("Casper - Bot Bilgi")
+  .setDescription("**İsim: **" + bolat + "\n**Tag: **" + tag + "\n**Hizmet Edilen Sunucu: ** " + sunucu + "\n**Hizmet Edilen Kullanıcı: **" + kullanıcı + "\n**Hizmet Edilen Kanal: **" + kanal + "\n**Gecikme Süresü:** " + ping + " MS" + "\n**Prefix: **" + prefix + "\n▬▬▬▬▬▬▬▬▬▬▬" + "\n[Sunucuna Ekle](https://discordapp.com/oauth2/authorize?client_id=615894660652728370&scope=bot&permissions=2146958847)")
+  .setColor("RANDOM")
+  .setTimestamp()
+  .setFooter("**Casper** İyi Günler Diler.")
+)
 };
 
 exports.conf = {
-  enabled: true,
-  guildOnly: false,
-  aliases: ['istatistik', 'i', 'istatistikler', 'botbilgi', 'bilgi', 'hakkında', 'bot hakkında', 'bothakkında'],
-      kategori: "Bot",
-  permLevel: 0
+  enabled: true,//True => Komut açık, False => Komut kapalı 
+  guildOnly: false, //True => Sadece Servere Özel, False => Heryerde kullanılabilir
+  aliases: ["istatistik"],//Komutun farklı kullanımları ÖR: !ping, !p
+  permLevel: 0 //kimlerin kullanabileceğini  (bot.js dosyasında perm leveller yazıyor)
 };
 
 exports.help = {
-  name: 'bilgi',
-  description: 'Bot ile ilgili bilgi verir.',
-  usage: 'bilgi'
-};
-//XiR
+  name: 'botbilgi',//Komutun adı (Komutu girerken lazım olucak)
+  description: 'Bot hakkında bilgileri gösterir',//Komutun Açıklaması
+  kategori: 'bot',// Komutun olduğu kategori. kategoriler: bot-yetkili-ayarlar-kullanıcı-sunucu-eğlence-efektcerceve
+  usage: 'botbilgi' //komutun kullanım şekli; ÖR: !ban @Kullanıcı
+}
